@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+data/
+out/
+wandb/
+renderer/*.ttf
+renderer/*.otf
+*.pt
+*.pth
+*.safetensors
+model.safetensors.index.json

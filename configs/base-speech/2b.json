@@ -1,0 +1,55 @@
+{
+  "data_root": "data",
+  "train_data": {
+    "txt_datasets": ["finewebedu", "cosmopedia2", "pythonedu"],
+    "aud_datasets": ["librispeech", "librilight", "swc", "tedlium3", "peoples-speech", "voxpopuli", "stinystories"],
+    "audtxt_datasets": ["libriheavy", "swc", "stinystories"],
+    "splits": ["train"],
+    "p_strategies": [1, 0, 1, 0, 1],
+    "txt_tokens": "smollm",
+    "img_tokens": "pixel",
+    "aud_tokens": "hubert",
+    "block_size": 2048
+  },
+  "validation_data": {
+    "txt_datasets": ["finewebedu"],
+    "aud_datasets": ["librispeech"],
+    "audtxt_datasets": ["libriheavy"],
+    "splits": ["validation"],
+    "p_strategies": [1, 0, 1, 0, 1],
+    "txt_tokens": "smollm",
+    "img_tokens": "pixel",
+    "aud_tokens": "hubert",
+    "block_size": 2048
+  },
+  "model": {
+    "backbone": "HuggingFaceTB/SmolLM-1.7B",
+    "backbone_revision": "646382037cc9ef78fa50842b0c95fc1cb7a608f9",
+    "warm_init": true,
+    "rope_theta": 100000.0,
+    "aud_inadapter_n_layers": 0,
+    "aud_inadapter_dim": 2048,
+    "aud_outadapter_n_layers": 0,
+    "aud_outadapter_dim": 2048,
+    "aud_attention_residual": "none"
+  },
+  "training": {
+    "output_dir": "out/base-speech-2b",
+    "batch_size": 6,
+    "gradient_accumulation_steps": 80,
+    "max_steps": 32000,
+    "eval_interval": 1000,
+    "eval_steps": 50,
+    "log_interval": 10,
+    "save_interval": 1000,
+    "backbone_lr": 0.0003,
+    "adapter_lr": 0.0003,
+    "min_backbone_lr": 0.0003,
+    "min_adapter_lr": 0.0003,
+    "warmup_steps": 100,
+    "warmdown_steps": 0,
+    "precision": "bfloat16",
+    "distributed": "fsdp",
+    "compile": true
+  }
+}

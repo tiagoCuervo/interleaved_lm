@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "interleaved-lm"
+version = "0.1.0"
+description = "Minimal multimodal interleaved language models for rendered text and speech"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "Santiago Cuervo"}]
+dependencies = [
+  "numba>=0.59,<1",
+  "numpy>=1.24,<3",
+  "safetensors>=0.4.3,<1",
+  "torch>=2.4,<3",
+  "transformers>=4.48,<5",
+]
+
+[project.optional-dependencies]
+speech-data = [
+  "datasets>=2.20,<5",
+  "huggingface-hub>=0.24,<2",
+  "joblib>=1.3,<2",
+  "kokoro>=0.9.4,<1",
+  "scikit-learn>=1.4,<2",
+  "soundfile>=0.12,<1",
+  "torchaudio>=2.4,<3",
+]
+mimi = ["moshi==0.2.13"]
+evaluation = [
+  "datasets>=2.20,<5",
+  "huggingface-hub>=0.24,<2",
+  "joblib>=1.3,<2",
+  "soundfile>=0.12,<1",
+  "torchaudio>=2.4,<3",
+  "tqdm>=4.66,<5",
+]
+rendered-text = [
+  "datasets>=2.20,<5",
+  "fonttools>=4.53,<5",
+  "manimpango>=0.6,<1",
+  "pycairo>=1.26,<2",
+  "PyGObject>=3.48,<4",
+]
+audio = ["soundfile>=0.12,<1"]
+notebook = [
+  "ipykernel>=6.29,<7",
+  "ipython>=8.26,<10",
+  "matplotlib>=3.8,<4",
+  "nbclient>=0.10,<1",
+  "nbformat>=5.10,<6",
+]
+logging = ["wandb>=0.17,<1"]
+dev = ["nbclient>=0.10,<1", "pytest>=8,<10", "ruff>=0.6,<1", "tokenizers>=0.19,<1"]
+
+[project.scripts]
+interleaved-train = "interleaved_lm.train:main"
+interleaved-eval = "interleaved_lm.evaluate:main"
+interleaved-convert = "interleaved_lm.convert_checkpoint:main"
+interleaved-render = "interleaved_lm.rendered_text:main"
+interleaved-text-data = "interleaved_lm.text_data:main"
+interleaved-storycloze = "interleaved_lm.storycloze_data:main"
+interleaved-speech-data = "interleaved_speech_data.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
